@@ -85,7 +85,39 @@ switch ($request['collection']) {
         // in place and used the update method, but we wanted to illustrate the
         // patch method here.
         $patch = new Google_TimelineItem();
-        $patch->setText("PHP Quick Start got your photo! " .
+        $patch->setText("Wikipedia fake-received your photo! " .
+            $timeline_item->getText());
+        $mirror_service->timeline->patch($timeline_item_id, $patch);
+        break;
+      }
+      if ($user_action['type'] == 'LAUNCH') {
+        $timeline_item_id = $request['itemId'];
+
+        $timeline_item = $mirror_service->timeline->get($timeline_item_id);
+        
+        $text = $timeline_item->getText();
+        $url = 'https://en.m.wikipedia.org/wiki/Special:Search?search=' . urlencode($text);
+
+        // Patch the item. Notice that since we retrieved the entire item above
+        // in order to access the caption, we could have just changed the text
+        // in place and used the update method, but we wanted to illustrate the
+        // patch method here.
+        $patch = new Google_TimelineItem();
+
+        $view = new Google_MenuItem();
+        $view->setAction('OPEN_URI');
+        $view->setPayload($url);
+
+        $share = new Google_MenuItem();
+        $share->setAction('SHARE');
+        $share->setPayload($url);
+        
+        $pin = new Google_MenuItem();
+        $pin->setAction('TOGGLE_PINNED');
+
+        $patch->setMenuItems(array($view, $share, $pin));
+
+        $patch->setText("Wikipedia: " .
             $timeline_item->getText());
         $mirror_service->timeline->patch($timeline_item_id, $patch);
         break;

@@ -131,6 +131,7 @@ function insert_contact($service, $contact_id, $display_name, $icon_url)
     $contact = new Google_Contact();
     $contact->setId($contact_id);
     $contact->setDisplayName($display_name);
+    $contact->setSpeakableName('wickeePEEdia');
     $contact->setImageUrls(array($icon_url));
     $contact->setAcceptCommands(array($take_a_note));
     $contact->setAcceptTypes(array('text/plain', 'image/png', 'image/jpeg', 'image/gif', 'video/webm', 'video/ogg', 'video/mp4'));
