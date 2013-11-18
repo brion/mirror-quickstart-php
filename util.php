@@ -84,8 +84,8 @@ function bootstrap_new_user() {
 
   insert_timeline_item($mirror_service, $timeline_item, null, null);
 
-  insert_contact($mirror_service, "php-quick-start", "PHP Quick Start",
-      $base_url . "/static/images/chipotle-tube-640x360.jpg");
+  insert_contact($mirror_service, "wikipedia", "Wikipedia",
+      $base_url . "/static/images/contact-photo");
 
   subscribe_to_notifications($mirror_service, "timeline",
     $_SESSION['userid'], $base_url . "/notify.php");

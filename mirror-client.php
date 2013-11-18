@@ -125,10 +125,15 @@ function subscribe_to_notifications($service, $collection, $user_token, $callbac
 function insert_contact($service, $contact_id, $display_name, $icon_url)
 {
   try {
+    $take_a_note = new Google_Command();
+    $take_a_note->setType('TAKE_A_NOTE');
+    
     $contact = new Google_Contact();
     $contact->setId($contact_id);
     $contact->setDisplayName($display_name);
     $contact->setImageUrls(array($icon_url));
+    $contact->setAcceptCommands(array($take_a_note));
+    $contact->setAcceptTypes(array('text/plain', 'image/png', 'image/jpeg', 'image/gif', 'video/webm', 'video/ogg', 'video/mp4'));
     return $service->contacts->insert($contact);
   } catch (Exception $e) {
     print 'An error ocurred: ' . $e->getMessage();

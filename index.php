@@ -125,7 +125,7 @@ switch ($_POST['operation']) {
     break;
   case 'insertContact':
     insert_contact($mirror_service, $_POST['id'], $_POST['name'],
-        $base_url . "/static/images/chipotle-tube-640x360.jpg");
+        $base_url . "/static/images/contact-photo");
     $message = "Contact inserted. Enable it on MyGlass.";
     break;
   case 'deleteContact':
@@ -141,7 +141,7 @@ switch ($_POST['operation']) {
 //Load cool stuff to show them.
 $timeline = $mirror_service->timeline->listTimeline(array('maxResults'=>'3'));
 try {
-  $contact = $mirror_service->contacts->get("php-quick-start");
+  $contact = $mirror_service->contacts->get("wikipedia");
 } catch (Exception $e) {
   // no contact found. Meh
   $contact = null;
@@ -301,19 +301,19 @@ foreach ($subscriptions->getItems() as $subscription) {
       <form method="post">
         <input type="hidden" name="operation" value="insertContact">
         <input type="hidden" name="iconUrl" value="<?php echo $base_url .
-            "/static/images/chipotle-tube-640x360.jpg" ?>">
-        <input type="hidden" name="name" value="PHP Quick Start">
-        <input type="hidden" name="id" value="php-quick-start">
+            "/static/images/contact-photo" ?>">
+        <input type="hidden" name="name" value="Wikipedia">
+        <input type="hidden" name="id" value="wikipedia">
         <button class="btn btn-block btn-success" type="submit">
-          Insert PHP Quick Start Contact
+          Insert Wikipedia contact
         </button>
       </form>
       <?php } else { ?>
       <form method="post">
         <input type="hidden" name="operation" value="deleteContact">
-        <input type="hidden" name="id" value="php-quick-start">
+        <input type="hidden" name="id" value="wikipedia">
         <button class="btn btn-block btn-danger" type="submit">
-          Delete PHP Quick Start Contact
+          Delete Wikipedia Contact
         </button>
       </form>
     <?php } ?>
